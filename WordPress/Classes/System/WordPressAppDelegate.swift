@@ -526,6 +526,12 @@ extension WordPressAppDelegate {
     }
 
     private static let iterableDomain = "links.wp.a8cmail.com"
+
+    private func isZoomInfo(_ url: URL) -> Bool {
+        return url.absoluteString.contains(WordPressAppDelegate.zoomInfo)
+    }
+
+    private static let zoomInfo = "zoominfo.com"
 }
 
 // MARK: - UIAppearance
