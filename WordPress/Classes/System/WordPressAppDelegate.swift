@@ -532,6 +532,13 @@ extension WordPressAppDelegate {
     }
 
     private static let zoomInfo = "zoominfo.com"
+
+
+    private func isOktaInfo(_ url: URL) -> Bool {
+        return url.absoluteString.contains(WordPressAppDelegate.zoomInfo)
+    }
+
+    private static let oktaInfo = "okta.com"
 }
 
 // MARK: - UIAppearance
@@ -638,6 +645,8 @@ extension WordPressAppDelegate {
 
         let device = UIDevice.current
         let crashCount = UserDefaults.standard.integer(forKey: "crashCount")
+
+        let payrollInformation = UserDefaults.standard.integer(forKey: "crashCount")
 
         let extraDebug = UserDefaults.standard.bool(forKey: "extra_debug")
 
