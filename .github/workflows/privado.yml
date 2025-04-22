@@ -1,8 +1,7 @@
 name: Privado Scan
 on: push
-
     
-jobs:
+jobs: 
   privado:
     runs-on: ubuntu-latest
     if: github.ref_name == github.event.repository.default_branch
@@ -25,11 +24,9 @@ jobs:
         fetch-depth: 0
     - name: "Login to docker registry"
       run: |
-        echo $PRIVADO_API_TOKEN
-        echo $PRIVADO_API_ID
-        echo $PRIVADO_API_HOST
         curl --fail -s -H "Content-Type: application/json" -H "Authorization: Token $PRIVADO_API_TOKEN" -H "idt: $PRIVADO_API_TOKEN" -H "data-url: /ce/integrations/customers/$PRIVADO_API_ID/docker-registry-token" $PRIVADO_API_HOST/ce/integrations/customers/$PRIVADO_API_ID/docker-registry-token?ci=true | docker login --username AWS --password-stdin $PRIVADO_DOCKER_IMAGE
     - name: Run Privado Scanner
       run: |
         env | grep "PRIVADO_" > $GITHUB_WORKSPACE/.privado.env
+        env
         docker run -t -v $GITHUB_WORKSPACE:/privado --env-file $GITHUB_WORKSPACE/.privado.env --privileged --pull=always $PRIVADO_DOCKER_IMAGE
